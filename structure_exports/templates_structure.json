@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "name": "templates",
+    "path": "D:\\IIT\\L5\\SDGP\\Project\\final\\fably\\BACKEND\\fably_web\\templates",
+    "generated_at": "2025-02-03T08:40:57.669763",
+    "total_files": 6,
+    "total_size": 15086
+  },
+  "structure": {
+    "add_item.html": {
+      "type": "file",
+      "info": {
+        "size": 2611,
+        "last_modified": "2025-02-03T08:40:57.5808395",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    "base.html": {
+      "type": "file",
+      "info": {
+        "size": 3479,
+        "last_modified": "2025-02-03T08:40:57.6256649",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    "dashboard.html": {
+      "type": "file",
+      "info": {
+        "size": 4004,
+        "last_modified": "2025-02-03T08:40:57.6575202",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    "edit_item.html": {
+      "type": "file",
+      "info": {
+        "size": 2732,
+        "last_modified": "2025-02-03T08:40:57.6611068",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    "login.html": {
+      "type": "file",
+      "info": {
+        "size": 966,
+        "last_modified": "2025-02-03T08:40:57.6642247",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    "register.html": {
+      "type": "file",
+      "info": {
+        "size": 1294,
+        "last_modified": "2025-02-03T08:40:57.6662688",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "add_item.html",
+      "content": "{% extends \"base.html\" %}\r\n{% block title %}Add Item{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"row justify-content-center\">\r\n    <div class=\"col-md-8\">\r\n        <div class=\"card\">\r\n            <div class=\"card-header\">\r\n                <h2 class=\"card-title mb-0\">Add New Item</h2>\r\n            </div>\r\n            <div class=\"card-body\">\r\n                <form method=\"POST\" enctype=\"multipart/form-data\">\r\n                    <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\">\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Name</label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"name\" required>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Description</label>\r\n                        <textarea class=\"form-control\" name=\"description\" rows=\"3\" required></textarea>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Price ($)</label>\r\n                        <input type=\"number\" class=\"form-control\" name=\"price\" step=\"0.01\" required>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Category</label>\r\n                        <select class=\"form-control\" name=\"category\" required>\r\n                            <option value=\"\">Select Category</option>\r\n                            {% for category in categories %}\r\n                                <option value=\"{{ category.name }}\">{{ category.name }}</option>\r\n                            {% endfor %}\r\n                        </select>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Photos</label>\r\n                        <input type=\"file\" class=\"form-control\" name=\"photos\" multiple accept=\"image/*\" required>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Stock Quantity</label>\r\n                        <input type=\"number\" class=\"form-control\" name=\"stock_quantity\" required>\r\n                    </div>\r\n\r\n                    <div class=\"d-flex justify-content-between\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Add Item</button>\r\n                        <a href=\"{{ url_for('dashboard') }}\" class=\"btn btn-secondary\">Cancel</a>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n{% endblock %}",
+      "info": {
+        "size": 2611,
+        "last_modified": "2025-02-03T08:40:57.5808395",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    {
+      "path": "base.html",
+      "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <title>{% block title %}{% endblock %} - Fably</title>\r\n    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\r\n</head>\r\n<body>\r\n    <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\r\n        <div class=\"container\">\r\n            <a class=\"navbar-brand\" href=\"{{ url_for('dashboard') }}\">Fably</a>\r\n            <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\">\r\n                <span class=\"navbar-toggler-icon\"></span>\r\n            </button>\r\n            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n                {% if current_user.is_authenticated %}\r\n                    <ul class=\"navbar-nav me-auto\">\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}\" \r\n                               href=\"{{ url_for('dashboard') }}\">Dashboard</a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link {% if request.endpoint == 'add_item' %}active{% endif %}\" \r\n                               href=\"{{ url_for('add_item') }}\">Add Item</a>\r\n                        </li>\r\n                    </ul>\r\n                    <ul class=\"navbar-nav\">\r\n                        <li class=\"nav-item\">\r\n                            <span class=\"nav-link\">Welcome, {{ current_user.name }}</span>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link\" href=\"{{ url_for('logout') }}\">Logout</a>\r\n                        </li>\r\n                    </ul>\r\n                {% else %}\r\n                    <ul class=\"navbar-nav ms-auto\">\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link {% if request.endpoint == 'login' %}active{% endif %}\" \r\n                               href=\"{{ url_for('login') }}\">Login</a>\r\n                        </li>\r\n                        <li class=\"nav-item\">\r\n                            <a class=\"nav-link {% if request.endpoint == 'register' %}active{% endif %}\" \r\n                               href=\"{{ url_for('register') }}\">Register</a>\r\n                        </li>\r\n                    </ul>\r\n                {% endif %}\r\n            </div>\r\n        </div>\r\n    </nav>\r\n\r\n    <div class=\"container mt-4\">\r\n        {% with messages = get_flashed_messages(with_categories=true) %}\r\n            {% if messages %}\r\n                {% for category, message in messages %}\r\n                    <div class=\"alert alert-{{ category }} alert-dismissible fade show\">\r\n                        {{ message }}\r\n                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\"></button>\r\n                    </div>\r\n                {% endfor %}\r\n            {% endif %}\r\n        {% endwith %}\r\n        \r\n        {% block content %}{% endblock %}\r\n    </div>\r\n\r\n    <footer class=\"footer mt-5 py-3 bg-light\">\r\n        <div class=\"container text-center\">\r\n            <span class=\"text-muted\">© 2025 Fably. All rights reserved.</span>\r\n        </div>\r\n    </footer>\r\n\r\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\"></script>\r\n</body>\r\n</html>",
+      "info": {
+        "size": 3479,
+        "last_modified": "2025-02-03T08:40:57.6256649",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    {
+      "path": "dashboard.html",
+      "content": "{% extends \"base.html\" %}\r\n{% block title %}Dashboard{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"row mb-4\">\r\n    <div class=\"col-md-8\">\r\n        <h2>My Items</h2>\r\n    </div>\r\n    <div class=\"col-md-4 text-end\">\r\n        <a href=\"{{ url_for('add_item') }}\" class=\"btn btn-primary\">\r\n            <i class=\"bi bi-plus-circle\"></i> Add New Item\r\n        </a>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    {% if items %}\r\n        {% for item in items %}\r\n            <div class=\"col-md-4 mb-4\">\r\n                <div class=\"card h-100\">\r\n                    {% if item.photos and item.photos|length > 0 %}\r\n                        <img src=\"{{ item.photos[0] }}\" class=\"card-img-top\" alt=\"{{ item.name }}\"\r\n                             style=\"height: 200px; object-fit: cover;\">\r\n                    {% else %}\r\n                        <div class=\"card-img-top bg-light d-flex align-items-center justify-content-center\"\r\n                             style=\"height: 200px;\">\r\n                            <span class=\"text-muted\">No Image</span>\r\n                        </div>\r\n                    {% endif %}\r\n                    <div class=\"card-body\">\r\n                        <h5 class=\"card-title\">{{ item.name }}</h5>\r\n                        <p class=\"card-text\">{{ item.description[:100] }}{% if item.description|length > 100 %}...{% endif %}</p>\r\n                    </div>\r\n                    <ul class=\"list-group list-group-flush\">\r\n                        <li class=\"list-group-item\">Price: ${{ \"%.2f\"|format(item.price) }}</li>\r\n                        <li class=\"list-group-item\">Stock: {{ item.stock_quantity }}</li>\r\n                        <li class=\"list-group-item\">Category: {{ item.category }}</li>\r\n                    </ul>\r\n                    <div class=\"card-footer bg-white\">\r\n                        <div class=\"d-flex justify-content-between\">\r\n                            <a href=\"{{ url_for('edit_item', item_id=item._id) }}\" \r\n                               class=\"btn btn-primary btn-sm\">Edit</a>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-sm\"\r\n                                    data-bs-toggle=\"modal\" \r\n                                    data-bs-target=\"#deleteModal{{ item._id }}\">Delete</button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Delete Modal -->\r\n            <div class=\"modal fade\" id=\"deleteModal{{ item._id }}\" tabindex=\"-1\">\r\n                <div class=\"modal-dialog\">\r\n                    <div class=\"modal-content\">\r\n                        <div class=\"modal-header\">\r\n                            <h5 class=\"modal-title\">Confirm Deletion</h5>\r\n                            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>\r\n                        </div>\r\n                        <div class=\"modal-body\">\r\n                            Are you sure you want to delete \"{{ item.name }}\"?\r\n                        </div>\r\n                        <div class=\"modal-footer\">\r\n                            <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Cancel</button>\r\n                            <form action=\"{{ url_for('delete_item', item_id=item._id) }}\" method=\"POST\" class=\"d-inline\">\r\n                                <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\">\r\n                                <button type=\"submit\" class=\"btn btn-danger\">Delete</button>\r\n                            </form>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        {% endfor %}\r\n    {% else %}\r\n        <div class=\"col-12\">\r\n            <div class=\"alert alert-info\">\r\n                No items found. Start by adding some items to your inventory!\r\n                <a href=\"{{ url_for('add_item') }}\" class=\"alert-link\">Add your first item</a>\r\n            </div>\r\n        </div>\r\n    {% endif %}\r\n</div>\r\n{% endblock %}",
+      "info": {
+        "size": 4004,
+        "last_modified": "2025-02-03T08:40:57.6575202",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    {
+      "path": "edit_item.html",
+      "content": "{% extends \"base.html\" %}\r\n{% block title %}Edit {{ item.name }}{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"row justify-content-center\">\r\n    <div class=\"col-md-8\">\r\n        <div class=\"card\">\r\n            <div class=\"card-header\">\r\n                <div class=\"d-flex justify-content-between align-items-center\">\r\n                    <h2 class=\"card-title mb-0\">Edit Item</h2>\r\n                    <a href=\"{{ url_for('dashboard') }}\" class=\"btn btn-outline-secondary\">Back to Dashboard</a>\r\n                </div>\r\n            </div>\r\n            <div class=\"card-body\">\r\n                <form method=\"POST\" enctype=\"multipart/form-data\">\r\n                    <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\">\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Name</label>\r\n                        <input type=\"text\" class=\"form-control\" name=\"name\" value=\"{{ item.name }}\" required>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Description</label>\r\n                        <textarea class=\"form-control\" name=\"description\" rows=\"3\" required>{{ item.description }}</textarea>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Price ($)</label>\r\n                        <input type=\"number\" class=\"form-control\" name=\"price\" value=\"{{ item.price }}\" step=\"0.01\" required>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Category</label>\r\n                        <select class=\"form-control\" name=\"category\" required>\r\n                            <option value=\"\">Select Category</option>\r\n                            {% for category in categories %}\r\n                                <option value=\"{{ category.name }}\" {% if item.category == category.name %}selected{% endif %}>\r\n                                    {{ category.name }}\r\n                                </option>\r\n                            {% endfor %}\r\n                        </select>\r\n                    </div>\r\n\r\n                    <div class=\"mb-3\">\r\n                        <label class=\"form-label\">Stock Quantity</label>\r\n                        <input type=\"number\" class=\"form-control\" name=\"stock_quantity\" value=\"{{ item.stock_quantity }}\" required>\r\n                    </div>\r\n\r\n                    <div class=\"d-flex justify-content-between\">\r\n                        <button type=\"submit\" class=\"btn btn-primary\">Update Item</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n{% endblock %}",
+      "info": {
+        "size": 2732,
+        "last_modified": "2025-02-03T08:40:57.6611068",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    {
+      "path": "login.html",
+      "content": "{% extends \"base.html\" %}\r\n{% block title %}Login{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"row justify-content-center\">\r\n    <div class=\"col-md-6\">\r\n        <h2>Login</h2>\r\n\r\n        <form method=\"POST\">\r\n            <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\">\r\n            \r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Email</label>\r\n                <input type=\"email\" class=\"form-control\" name=\"email\" required>\r\n            </div>\r\n            \r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Password</label>\r\n                <input type=\"password\" class=\"form-control\" name=\"password\" required>\r\n            </div>\r\n            \r\n            <button type=\"submit\" class=\"btn btn-primary\">Login</button>\r\n        </form>\r\n        \r\n        <p class=\"mt-3\">Don't have an account? <a href=\"{{ url_for('register') }}\">Register here</a></p>\r\n    </div>\r\n</div>\r\n{% endblock %}",
+      "info": {
+        "size": 966,
+        "last_modified": "2025-02-03T08:40:57.6642247",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    },
+    {
+      "path": "register.html",
+      "content": "{% extends \"base.html\" %}\r\n{% block title %}Register{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"row justify-content-center\">\r\n    <div class=\"col-md-6\">\r\n        <h2>Register</h2>\r\n\r\n        <form method=\"POST\">\r\n            <input type=\"hidden\" name=\"csrf_token\" value=\"{{ csrf_token() }}\">\r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Name</label>\r\n                <input type=\"text\" class=\"form-control\" name=\"name\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Email</label>\r\n                <input type=\"email\" class=\"form-control\" name=\"email\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Password</label>\r\n                <input type=\"password\" class=\"form-control\" name=\"password\" required>\r\n            </div>\r\n            <div class=\"mb-3\">\r\n                <label class=\"form-label\">Phone</label>\r\n                <input type=\"tel\" class=\"form-control\" name=\"phone\" required>\r\n            </div>\r\n            <button type=\"submit\" class=\"btn btn-primary\">Register</button>\r\n        </form>\r\n        <p class=\"mt-3\">Already have an account? <a href=\"{{ url_for('login') }}\">Login here</a></p>\r\n    </div>\r\n</div>\r\n{% endblock %}",
+      "info": {
+        "size": 1294,
+        "last_modified": "2025-02-03T08:40:57.6662688",
+        "mime_type": "text/html",
+        "extension": ".html"
+      }
+    }
+  ]
+}

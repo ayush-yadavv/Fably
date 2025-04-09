@@ -1,0 +1,9 @@
+*.pyc
+/.idea
+/.vscode
+*.bin
+*.o
+*.cmake
+/FRONTEND/fably/android/app/.cxx/Debug
+/fably_no_firebase
+/FRONTEND/fably/android/app/.cxx
