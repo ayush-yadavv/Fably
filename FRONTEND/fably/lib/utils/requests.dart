@@ -7,7 +7,7 @@ import 'prefs.dart';
 class BackendRequests {
   //final url = 'http://192.168.1.7:5000'; // the backend server is defined here.
   //final url = 'http://185.194.142.40:5000'; 
-  final url = 'https://fably-04d5863155e1.herokuapp.com';
+  final url = 'https://fably.onrender.com/';
   //final url = 'http://192.168.1.102:3000';
   Future<String> getCsrf() async{
     final csrfUrl = Uri.parse('$url/get-csrf-token');
