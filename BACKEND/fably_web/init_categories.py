@@ -1,7 +1,9 @@
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
-client = MongoClient('mongodb+srv://FablyUser:qO4UZo2U1xszuv17@fably-data.m3ceo.mongodb.net/?retryWrites=true&w=majority&appName=Fably-data')
+MONGO_URI = os.environ.get('MONGO_URI')
+client = MongoClient(MONGO_URI)
 db = client['fably_db']
 
 clothing_categories = [
